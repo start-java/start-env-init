@@ -6,15 +6,6 @@ $current_date_time = Get-Date -format "yyyy-MM-dd HH:mm:ss"
 $install_to_dir = "D:\green"
 $package_from_dir = "packages"
 
-$maven_dir = "apache-maven-3.5.4"
-$maven_url = "http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.5.4/binaries/$maven_dir-bin.zip"
-$maven_package = [io.path]::GetFileName($maven_url)
-
-# download portable OpenJDK from https://github.com/ojdkbuild/ojdkbuild
-$java_dir = "java-1.8.0-openjdk-1.8.0.181-1.b13.ojdkbuild.windows.x86_64"
-$java_url = "https://github-production-release-asset-2e65be.s3.amazonaws.com/54895694/246e808e-9124-11e8-8327-f220118bc6f7?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20181010%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20181010T161421Z&X-Amz-Expires=300&X-Amz-Signature=390c2c6672320741ee5dc3eba1e98a67e4b2612bcd4a3782b9a91c63693efd5d&X-Amz-SignedHeaders=host&actor_id=271488&response-content-disposition=attachment%3B%20filename%3Djava-1.8.0-openjdk-1.8.0.181-1.b13.ojdkbuild.windows.x86_64.zip&response-content-type=application%2Foctet-stream"
-$java_package = "$java_dir.zip" #[io.path]::GetFileName($java_url)
-
 
 # 2. 创建绿色软件安装目录
 if (!(Test-Path -Path "$install_to_dir")) {
@@ -25,7 +16,12 @@ if (!(Test-Path -Path "$install_to_dir")) {
 }
 "-----------------------------"
 
+
 # 3. java
+# download portable OpenJDK from https://github.com/ojdkbuild/ojdkbuild
+$java_dir = "java-1.8.0-openjdk-1.8.0.181-1.b13.ojdkbuild.windows.x86_64"
+$java_url = "https://github-production-release-asset-2e65be.s3.amazonaws.com/54895694/246e808e-9124-11e8-8327-f220118bc6f7?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20181010%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20181010T161421Z&X-Amz-Expires=300&X-Amz-Signature=390c2c6672320741ee5dc3eba1e98a67e4b2612bcd4a3782b9a91c63693efd5d&X-Amz-SignedHeaders=host&actor_id=271488&response-content-disposition=attachment%3B%20filename%3Djava-1.8.0-openjdk-1.8.0.181-1.b13.ojdkbuild.windows.x86_64.zip&response-content-type=application%2Foctet-stream"
+$java_package = "$java_dir.zip" #[io.path]::GetFileName($java_url)
 # 3.1. 下载、安装 java
 $java_home = "$install_to_dir\$java_dir"
 if (!(Test-Path -Path $java_home)) {
@@ -51,7 +47,11 @@ if (!(Test-Path -Path env:JAVA_HOME)) {
 }
 "----------end java ----------"
 
+
 # 4. maven
+$maven_dir = "apache-maven-3.5.4"
+$maven_url = "http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.5.4/binaries/$maven_dir-bin.zip"
+$maven_package = [io.path]::GetFileName($maven_url)
 # 4.1. 下载、安装 maven
 $m2_home = "$install_to_dir\$maven_dir"
 if (!(Test-Path -Path $m2_home)) {
