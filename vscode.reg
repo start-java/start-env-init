@@ -1,0 +1,29 @@
+Windows Registry Editor Version 5.00
+
+; Open files
+[HKEY_CLASSES_ROOT\*\shell\Open with Code]
+@="Open with Code"
+"Icon"="D:\\green\\VSCode-win32-x64-1.28.0\\Code.exe,0"
+
+[HKEY_CLASSES_ROOT\*\shell\Open with Code\command]
+@="\"D:\\green\\VSCode-win32-x64-1.28.0\\Code.exe\" \"%1\""
+
+; This will make it appear when you right click ON a folder
+; The "Icon" line can be removed if you don't want the icon to appear
+
+[HKEY_CLASSES_ROOT\Directory\shell\vscode]
+@="Open as Code Project"
+"Icon"="\"D:\\green\\VSCode-win32-x64-1.28.0\\Code.exe\",0"
+
+[HKEY_CLASSES_ROOT\Directory\shell\vscode\command]
+@="\"D:\\green\\VSCode-win32-x64-1.28.0\\Code.exe\" \"%1\""
+
+; This will make it appear when you right click INSIDE a folder
+; The "Icon" line can be removed if you don't want the icon to appear
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\vscode]
+@="Open as Code Project"
+"Icon"="\"D:\\green\\VSCode-win32-x64-1.28.0\\Code.exe\",0"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\vscode\command]
+@="\"D:\\green\\VSCode-win32-x64-1.28.0\\Code.exe\" \"%V\""
