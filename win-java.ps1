@@ -115,5 +115,35 @@ if (!(Test-Path -Path "$vscode_home\data")) {
 "----------end vscode----------"
 
 
+# 6. nodejs (zip 包内有 1 级目录，名称与 zip 文件名称相同)
+$nodejs_url = "https://nodejs.org/dist/v10.12.0/node-v10.12.0-win-x64.zip"
+$nodejs_package = [io.path]::GetFileName($nodejs_url)
+$nodejs_dir = [io.path]::GetFileNameWithoutExtension($nodejs_package)
+# 6.1. 下载、安装 nodejs
+$nodejs_home = "$install_to_dir\$nodejs_dir"
+if (!(Test-Path -Path $nodejs_home)) {
+  if (!(Test-Path -Path "$package_from_dir\$nodejs_package")) {
+    "下载 nodejs 安装包到 $package_from_dir\$nodejs_package"
+    "nodejs_url=$nodejs_url"
+    Invoke-WebRequest -Uri $nodejs_url -OutFile "$package_from_dir\$nodejs_package"
+  }
+
+  "解压 nodejs 包到目录 $install_to_dir\$nodejs_dir"
+  Expand-Archive -Path $package_from_dir\$nodejs_package -DestinationPath $install_to_dir
+} else {
+  "目录 $nodejs_home 已经存在，忽略安装 nodejs！"
+}
+# 6.2. 设置 nodejs 环境变量
+if (!(Test-Path -Path env:NODEJS_HOME)) {
+  "设置用户环境变量 NODEJS_HOME=$nodejs_home"
+  [Environment]::SetEnvironmentVariable("NODEJS_HOME", $nodejs_home, "User")
+  $old_path = [Environment]::GetEnvironmentVariable("Path", "User")
+  [Environment]::SetEnvironmentVariable("Path", "$old_path;$nodejs_home", "User")
+} else {
+  "NODEJS_HOME 环境变量已经存在，忽略不设置！NODEJS_HOME=$env:NODEJS_HOME"
+}
+"----------end nodejs----------"
+
+
 $current_date_time = Get-Date -format "yyyy-MM-dd HH:mm:ss"
 "$current_date_time End"
